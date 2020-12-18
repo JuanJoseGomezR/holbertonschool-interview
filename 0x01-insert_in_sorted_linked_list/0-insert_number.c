@@ -1,41 +1,37 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
+#include "lists.h"
 
 /**
-  * insert_node - inserts a number in a sorted sllist
-  * @head: first node
-  * @number: number to insert in the llist
-  * Return: new node
-  */
+ * insert_node - inserts a number in a sorted sllist
+ * @head: first node
+ * @number: number to insert in the llist
+ * Return: new node
+ */
 
 listint_t *insert_node(listint_t **head, int number)
 {
-	listint_t *new = malloc(sizeof(listint_t);
-	*tmp = *head;
-	int i = 0;
+	listint_t *tmp;
+	listint_t *new;
 
+	new = malloc(sizeof(listint_t));
 	if (new == NULL)
 		return (NULL);
-
 	new->n = number;
-	new->next = *head;
-	while (tmp)
+	if (*head == NULL || number < (*head)->n)
 	{
-		if (new->n > tmp->n)
-		{
-			i = new->n;
-			new->n = tmp->n;
-			tmp->n = i;
-		}
-		if (tmp->next && tmp->n > tmp->next->n)
-		{
-			i = tmp->n;
-			tmp->n = tmp->next->n;
-			tmp->next->n = i;
-		}
-		tmp = tmp->next;
+		new->next = *head;
+		*head = new;
+		return (new);
 	}
-	*head = new;
+	for (tmp = *head; tmp->next != NULL; tmp = tmp->next)
+	{
+		if (number >= tmp->n && number < tmp->next->n)
+		{
+			new->next = tmp->next;
+			tmp->next = new;
+			return (new);
+		}
+	}
+	tmp->next = new;
+	new->next = NULL;
 	return (new);
 }
