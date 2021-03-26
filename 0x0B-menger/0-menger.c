@@ -7,6 +7,7 @@
 
 void menger(int level)
 {
+<<<<<<< HEAD
 	int i, j, powered, divI, divJ;
 	char ch;
 
@@ -15,6 +16,16 @@ void menger(int level)
 	for (i = 0; i < powered; i++)
 	{
 		for (j = 0; j < powered; j++)
+=======
+	int i, j, pow_result, divI, divJ;
+	char ch;
+
+	pow_result = pow(3, level);
+
+	for (i = 0; i < pow_result; i++)
+	{
+		for (j = 0; j < pow_result; j++)
+>>>>>>> aef1eeb850ac82590a25e821c1ba8ea2a8f64d27
 		{
 			ch = '#';
 			divI = i;
