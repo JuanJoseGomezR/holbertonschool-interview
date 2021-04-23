@@ -1,9 +1,12 @@
 #include "sort.h"
 
 /**
-  *
-  *
-  *
+  * swap - swaps values in array
+  * @a: first value to change
+  * @b: second value to change
+  * @array: array with the values
+  * @size: size of array
+  * Return: void
   */
 
 void swap(int *a, int *b, int *array, int size)
@@ -14,12 +17,20 @@ void swap(int *a, int *b, int *array, int size)
 	print_array(array, size);
 }
 
+/**
+  * heapify- heapifies the array
+  * @arr: array
+  * @size: size of array
+  * @real_size: real size
+  * @i: iterator
+  * Return: void
+  */
 void heapify(int *arr, int size, int i, int real_size)
 {
 	int largest = i;
 
 	int left = (2 * i) + 1;
-	int right = (2 * i )+ 2;
+	int right = (2 * i) + 2;
 
 	if (left < size && arr[left] > arr[largest])
 	{
@@ -41,9 +52,10 @@ void heapify(int *arr, int size, int i, int real_size)
 
 
 /**
-  *
-  *
-  *
+  * heap_sort - sort algorithm
+  * @array: array to change
+  * @size: sizeof array
+  * Return: void
   */
 
 void heap_sort(int *array, size_t size)
