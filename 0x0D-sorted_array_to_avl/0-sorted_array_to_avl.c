@@ -2,12 +2,13 @@
 #include <stdio.h>
 #include "binary_trees.h"
 #include "functions.c"
+
 /**
-   * bst_insert - checks if a binary tree is bts
-    * @tree: pointer to the node
-     * @value:number to insert
-      * Return: 1 if it is bts 0 otherwise
-       **/
+  * bst_insert - checks if a binary tree is bts
+  * @tree: pointer to the node
+  * @value:number to insert
+  * Return: 1 if it is bts 0 otherwise
+  **/
 avl_t *bst_insert(avl_t **tree, int value)
 {
 		binary_tree_t *root;
