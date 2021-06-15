@@ -1,89 +1,108 @@
 #include "holberton.h"
 
 /**
- * _isdigit - check if a string is a digit
- * Description - This function is to check if a string is a digit
- * @n: Sring to guess if is an uppercase character
- * Return: 1 if n is a digit, 0 otherwise
+ * multiplication - returns pointer to array with the result of a
+ * multiplication between two numbers
+ * @num1: pointer to string representing a number
+ * @len1: lenght of num1
+ * @num2: pointer to string representing a number
+ * @len2: lenght of num2
+ * Return: pointer to array with the result
  */
-int _isdigit(char *n)
+int *multiplication(char *num1, int len1, char *num2, int len2)
+{
+	int i, j, mul, *res;
+
+	res = malloc((len2 + len1) * sizeof(int));
+	if (res == NULL)
+	{
+		print_string("Error\n");
+		exit(98);
+	}
+	for (i = 0; i < len1 + len2; i++)
+		res[i] = 0;
+	for (i = len2 - 1; i >= 0; i--)
+	{
+		for (j = len1 - 1; j >= 0; j--)
+		{
+			mul = (num2[i] - '0') * (num1[j] - '0');
+			res[i + j + 1] += mul % 10;
+			res[i + j] += mul / 10;
+			if (res[i + j + 1] >= 10)
+			{
+				res[i + j] += res[i + j + 1] / 10;
+				res[i + j + 1] %= 10;
+			}
+		}
+	}
+	return (res);
+}
+
+/**
+ * print_string - prints a string
+ * @str: the string
+ */
+void print_string(char *str)
 {
 	int i;
 
-	i = 0;
-	while (*(n + i) != '\0')
+	for (i = 0; str[i] != '\0'; i++)
 	{
-		if (*(n + i) < '0' || *(n + i) > '9')
-			return (0);
-		i++;
+		_putchar(str[i]);
 	}
-	return (1);
 }
 
 /**
- * _strlen - Return the len of a string
- * Description: This function shows the length of a given string
- * @s: Pointer that contains the string
- * Return: @s len
+ * num_len - returns the lenght of a string representing a number
+ * @num: the string
+ * Return: int with the lenght, -1 if it is not a valid string
  */
-int _strlen(const char *s)
+int num_len(char *num)
 {
-	int len = 0;
+	int i = 0;
 
-	while (*s != '\0')
+	for (; num[i] != '\0'; i++)
 	{
-		len++;
-		s++;
+		if (num[i] < 48 || num[i] > 57)
+			return (-1);
 	}
-	return (len);
+	return (i);
 }
-
 /**
- * main - the entry point
- * @argc: Number of arguments
- * @argv: Arguments to multiply
- * Return: return 0, 98 otherwise and prints Error
+ * main - program that multiplies two positive numbers.
+ * @argc: number of arguments
+ * @argv: array with arguments
+ * Return: 0 un success, 98 if not.
  */
-int main(int argc, char *argv[])
+int main(int argc, char **argv)
 {
-	int p, res, len, n1, n2, i, j;
-	int *total;
+	int i, len1, len2, *res;
 
-	if (argc < 3 || argc > 3 || !(_isdigit(argv[1])) || !(_isdigit(argv[2])))
-		puts("Error"), exit(98);
+	if (argc != 3)
+	{
+		print_string("Error\n");
+		exit(98);
+	}
+	len1 = num_len(argv[1]);
+	len2 = num_len(argv[2]);
+	if (len1 == -1 || len2 == -1)
+	{
+		print_string("Error\n");
+		exit(98);
+	}
 	if (argv[1][0] == '0' || argv[2][0] == '0')
 	{
-		printf("0\n");
+		print_string("0\n");
 		return (0);
 	}
-	n1 = _strlen(argv[1]), n2 = _strlen(argv[2]);
-	len = n1 + n2;
-	total = calloc(len, sizeof(int *));
-	if (total == NULL)
-		puts("Error"), exit(98);
-	for (i = (n2 - 1); i > -1; i--)
-	{
-		res = 0;
-		for (j = (n1 - 1); j > -1; j--)
-		{
-			p = (argv[2][i] - '0') * (argv[1][j] - '0');
-			res =  (p / 10);
-			total[(i + j) + 1] += (p % 10);
-			if (total[(i + j) + 1] > 9)
-			{
-				total[i + j] += total[(i + j) + 1] / 10;
-				total[(i + j) + 1] = total[(i + j) + 1] % 10;
-			}
-			total[(i + j)] += res;
-		}
-	}
-	if (total[0] == 0)
+	res = multiplication(argv[1], len1, argv[2], len2);
+	if (!res[0])
 		i = 1;
 	else
 		i = 0;
-	for (; i < len; i++)
-		printf("%d", total[i]);
-	printf("\n");
-	free(total);
+	for (; i < len1 + len2; i++)
+		_putchar(res[i] + '0');
+	_putchar('\n');
+	free(res);
 	return (0);
 }
