@@ -1,4 +1,9 @@
 #!/usr/bin/python3
+<<<<<<< HEAD
+
+def validUTF8(data)
+
+=======
 """
 Module used to add two arrays
 """
@@ -34,3 +39,4 @@ def validUTF8(data):
         n_bytes -= 1
 
     return n_bytes == 0
+>>>>>>> 144bb0ca1dffeaf131d3314832e843fe45bbde66
