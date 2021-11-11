@@ -1,6 +1,5 @@
 #include "sort.h"
 
-
 /**
  * radix_sort - Sorts an array of integers using the radix sort algorithm
  * @array: array to sort
