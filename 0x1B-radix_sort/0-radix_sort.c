@@ -1,34 +1,34 @@
 #include "sort.h"
 
 /**
- * radix_sort - Sorts an array of integers using the radix sort algorithm
+ * largest - return the largerst element in array
  * @array: array to sort
- * @size: size of the array
- * Return: nothing (void)
+ * @size: size of the array to sort
+ * Return: the largest number in array
  */
-void radix_sort(int *array, size_t size);
+int largest(int *array, size_t size)
 {
-    int base, max, i;
+	size_t i;
+	int max = array[0];
 
-	if (array == NULL || size <= 1)
-		return;
-	max = largest(array, size);
-	for (i = 1, base = 10; max / i > 0; i *= base)
+	for (i = 1; i < size; i++)
 	{
-		count_sort(array, size, i);
+		if (array[i] > max)
+			max = array[i];
 	}
+	return (max);
 }
 
 /**
- * count_sort - count sort algorithm
- * @array: array given
- * @size: size of the array
- * @key: key
- * Return: nothing
+ * counting_sort - function that sorts an array of integers
+ * in ascending order using the Counting sort algorithm
+ * @array: array to sort
+ * @size: size of the array to sort
+ * @key: the key digit according to the base for sort the array
  */
-void count_sort(int *array, int size, int key)
+void counting_sort(int *array, int size, int key)
 {
-    int *output = NULL;
+	int *output = NULL;
 		int i = 0;
 		int count[10] = {0};
 
@@ -54,20 +54,20 @@ void count_sort(int *array, int size, int key)
 }
 
 /**
- * largest - return the largerst element in array
+ * radix_sort - function that sorts an array of integers
+ * in ascending order using the Radix sort algorithm
  * @array: array to sort
- * @size: size of the array to sort
- * Return: the largest number in array
+ * @size: array size
  */
-int largest(int *array, size_t size)
+void radix_sort(int *array, size_t size)
 {
-	size_t i;
-	int max = array[0];
+	int base, max, i;
 
-	for (i = 1; i < size; i++)
+	if (array == NULL || size <= 1)
+		return;
+	max = largest(array, size);
+	for (i = 1, base = 10; max / i > 0; i *= base)
 	{
-		if (array[i] > max)
-			max = array[i];
+		counting_sort(array, size, i);
 	}
-	return (max);
 }
